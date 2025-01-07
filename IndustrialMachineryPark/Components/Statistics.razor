@@ -1,0 +1,26 @@
+﻿@using IndustrialMachineryPark.Services
+@rendermode InteractiveServer
+ <div class="col">
+    <div class="card rounded-3">
+        <div class="card-header py-3">
+            <h4>Statistics</h4>
+        </div>
+        <div class="card-body text-center">
+            <div class="mb-3">
+                <span>Total Devices </span> @onlineMachineCount
+            </div>
+            <div class="mb-3">
+               <span>Devices Online</span> @machineCount
+            </div>
+            <div class="mb-3">
+                <span>Lat Edited Device(ID & Name)</span> &nbsp; @($"{LastEditedMachine.Id } : {LastEditedMachine.Name}") 
+            </div>
+            <div class="mb-3">
+            </div>
+            @* <a href="@( $"employeedetail/{Employee.Id}")" class="btn btn-outline-primary btn-sm mb-1">
+                Full details
+            </a>
+            <button @onclick="@hhh"></button> *@
+        </div>
+    </div>
+</div> 

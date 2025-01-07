@@ -1,0 +1,65 @@
+﻿@using IndustrialMachineryPark.Services
+@using IndustrialMachineryPark.Model.Entities
+@inject MachineService MachineService
+@* @page "/machines" *@
+@rendermode InteractiveServer
+
+<div class="d-flex justify-content-between mt-3">
+    <h3>List of Devices</h3>
+  @*   <button class=" btn btn-primary">New Device</button> *@
+</div>
+<div style="padding-top:20px;">
+<table class="table table-light">
+    <thead class="table-primary">
+        <tr>
+            <th>Device Id</th>
+            <th>Device</th>
+            <th>Status</th>
+            <th>Latest Data</th>
+            <th>Last Updated</th>
+            <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var machine in MachineService.Machines)
+        {
+            <tr>
+                <td>@machine.Id </td>
+                <td>@machine.Name</td>
+                <td>
+                   @if(machine.IsOnline){
+                    <span class=" btn btn-primary btn-sm mb-1">Online</span>
+                    }
+                    else
+                    {
+                    <span class=" btn btn-success btn-sm mb-1">Offline</span>
+                    }
+                    </td>
+                <td>@machine.LatestData</td>
+                <td>@machine.LastUpdated</td>
+                <td>
+                        <a href="@( $"SendDataToMachine/{machine.Id}")" class="btn btn-outline-primary btn-sm mb-1">
+                            Send Data 
+                        </a>
+                </td>
+                <td>
+                    <button @onclick="() => RemoveMachine(machine)" class="btn btn-outline-primary">Delete</button>
+                </td>
+                    <td>
+                        <button @onclick="() => StartMachine(machine)" class="btn btn-outline-primary">Start</button>
+                    </td>
+                    <td>
+                        <button @onclick="() => StopMachine(machine)" class="btn btn-outline-primary">Stop</button>
+                    </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+   
+  </div>
+
+

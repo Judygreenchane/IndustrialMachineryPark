@@ -1,0 +1,60 @@
+﻿@page "/addmachine"
+@using IndustrialMachineryPark.Services
+@inject MachineService MachineService
+@using IndustrialMachineryPark.Model.Entities
+@rendermode InteractiveServer
+
+<h3>Add a Device</h3>
+<table>
+    <tr>
+        
+        <td>
+            <span> Device ID</span>
+            <input @bind="Id" placeholder="Enter device ID" /></td>
+    </tr>
+    <tr>
+        <td>
+            <span> Device </span>&nbsp &nbsp 
+            <input @bind="machineName" placeholder="Enter device name" />
+            
+        </td>
+    </tr>
+
+<tr>
+        <td>
+<span> Status</span>
+<select @bind="SelectedItem" class="form-select">
+    <option value="">-- Select Status --</option>
+    <option value="online">Online</option>
+    <option value="offline">Offline</option>
+
+</select>
+        </td>
+    </tr>
+</table>
+<button @onclick="AddAMachine">Add Machine</button>
+
+@code {
+    private string? machineName;
+    private int Id;
+    private string?  SelectedItem;
+    //private Machine machine { get; set; } = default!;
+    private void AddAMachine()
+    {
+        if (!string.IsNullOrEmpty(machineName))
+        {
+            var machine = new Machine();
+            machine.Id = this.Id;
+            machine.Name = machineName;
+            if (SelectedItem == "online")
+                machine.IsOnline = true;
+            else
+                machine.IsOnline = false;
+            machine.LastUpdated = DateTime.Now;
+
+            MachineService.AddMachine(machine);
+           // machine = null!;
+            // NewMachine = string.Empty;
+        }
+    }
+}
